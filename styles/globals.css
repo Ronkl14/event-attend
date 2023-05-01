@@ -25,3 +25,12 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+input {
+  color: black;
+}
+
+button {
+  background-color: white !important;
+  color: black;
+}
