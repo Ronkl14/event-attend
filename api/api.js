@@ -23,3 +23,16 @@ export async function getEventById(id) {
     return response.data.data;
   } catch (err) {}
 }
+
+export async function getAllUsers() {
+  try {
+    const response = await api.get("/users");
+    return response.data.data;
+  } catch (err) {}
+}
+
+export async function createUser(data) {
+  try {
+    const response = await api.post("/users", data);
+  } catch (err) {}
+}
