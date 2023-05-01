@@ -1,10 +1,17 @@
 import { useState } from "react";
+import { createUser, getAllUsers } from "@/api/api";
 
-const InviteUser = () => {
+const InviteUser = ({ setUsers }) => {
   const [formData, setFormData] = useState({});
 
-  function handleSubmit(e) {
+  async function submitHandler(e) {
     e.preventDefault();
+    await createUser(formData);
+    async function fetchData() {
+      const userList = await getAllUsers();
+      setUsers(userList);
+    }
+    fetchData();
   }
 
   function changeHandler(e) {
@@ -16,7 +23,7 @@ const InviteUser = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={submitHandler}>
       <ul>
         <li>
           <label htmlFor="name">Name:</label>

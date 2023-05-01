@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { getEventById } from "@/api/api";
+import { getEventById, getAllUsers, sendSMS } from "@/api/api";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import InviteUser from "@/components/InviteUser";
@@ -25,10 +25,34 @@ const EventPage = () => {
     return <div>Loading...</div>;
   }
 
+  useEffect(() => {
+    async function fetchData() {
+      const userList = await getAllUsers();
+      setUsers(userList);
+    }
+    fetchData();
+  }, [users]);
+
+  function handleSendSMS(name, phone) {
+    sendSMS(name, phone);
+    console.log("sent");
+  }
+
   return (
     <div>
       {event.name}
-      <InviteUser />
+      <InviteUser setUsers={setUsers} />
+      {users.map((user) => {
+        return (
+          <>
+            <div key={user.phone}>{`${user.name} ${user.phone}`}</div>
+            <button onClick={() => handleSendSMS(user.name, user.phone)}>
+              Send SMS
+            </button>
+          </>
+        );
+      })}
+
       <div>
         <Link href="/">Back Home</Link>
       </div>
