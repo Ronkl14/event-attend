@@ -18,10 +18,10 @@ export default function Home() {
     <>
       <EventForm setEventList={setEventList} />
       <ul>
-        {eventList.map((event) => {
+        {eventList?.map((event) => {
           return (
-            <li key={event._id}>
-              <Link href={`/events/${event._id}`}>{event.name}</Link>
+            <li key={event.idevents}>
+              <Link href={`/events/${event.idevents}`}>{event.event_name}</Link>
             </li>
           );
         })}
