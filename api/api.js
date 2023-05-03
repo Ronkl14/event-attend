@@ -39,30 +39,7 @@ export async function createUser(data) {
 }
 
 export async function sendSMS(name, phone) {
-  let data = qs.stringify({
-    post: "2",
-    token: process.env.SMS_KEY,
-    msg: `hola ${name}`,
-    list: phone,
-    from: "gilad",
-  });
-
-  let config = {
-    method: "post",
-    maxBodyLength: Infinity,
-    url: "http://www.micropay.co.il/ExtApi/ScheduleSms.php",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    data: data,
-  };
-
-  axios
-    .request(config)
-    .then((response) => {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  try {
+    const response = await api.post("/users/msg", { name: name, phone: phone });
+  } catch (err) {}
 }
