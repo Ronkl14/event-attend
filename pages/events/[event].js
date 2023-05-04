@@ -46,7 +46,10 @@ const EventPage = () => {
         return (
           <>
             <div key={user.phone}>{`${user.name} ${user.phone}`}</div>
-            <button onClick={() => handleSendSMS(user.name, user.phone)}>
+            <button
+              key={user.phone}
+              onClick={() => handleSendSMS(user.name, user.phone)}
+            >
               Send SMS
             </button>
           </>
