@@ -14,7 +14,8 @@ const router = express.Router();
 
 router.route("/events").post(createEvent).get(getAllEvents);
 router.route("/events/:id").get(getEventById);
-router.route("/users").post(createUser).get(getAllUsers);
+router.route("/events/:id/users").get(getAllUsers);
+router.route("/users").post(createUser);
 router.route("/users/msg").post(sendSMS);
 
 module.exports = router;

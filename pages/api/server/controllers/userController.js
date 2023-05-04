@@ -2,20 +2,37 @@ const asyncHandler = require("express-async-handler");
 const User = require("../model/User.js");
 const qs = require("qs");
 const axios = require("axios");
+const db = require("../config/dbSQL.js");
 
 const createUser = asyncHandler(async (req, res, next) => {
-  const user = await User.create(req.body);
+  const name = req.body.name;
+  const phone = req.body.phone;
+  const event = req.body.event;
+  const sql =
+    "INSERT INTO attendees (attendee_name, attendee_phone, event_id) VALUES (?, ?, ?)";
+  const values = [name, phone, event];
+  const [response] = await (await db).query(sql, values);
   res.status(200).json({
     success: true,
-    data: user,
+    data: response,
   });
 });
 
+// const getAllUsers = asyncHandler(async (req, res, next) => {
+//   const users = await User.find();
+//   res.status(200).json({
+//     success: true,
+//     data: users,
+//   });
+// });
+
 const getAllUsers = asyncHandler(async (req, res, next) => {
-  const users = await User.find();
+  const event = req.params.id;
+  const q = `SELECT * FROM attendees WHERE event_id = ${event}`;
+  const [response] = await (await db).query(q);
   res.status(200).json({
     success: true,
-    data: users,
+    data: response,
   });
 });
 

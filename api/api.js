@@ -24,9 +24,9 @@ export async function getEventById(id) {
   } catch (err) {}
 }
 
-export async function getAllUsers() {
+export async function getAllUsers(event) {
   try {
-    const response = await api.get("/users");
+    const response = await api.get(`/events/${event}/users`);
     return response.data.data;
   } catch (err) {}
 }

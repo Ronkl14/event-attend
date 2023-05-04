@@ -27,7 +27,7 @@ const EventPage = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const userList = await getAllUsers();
+      const userList = await getAllUsers(eventId);
       setUsers(userList);
     }
     fetchData();
@@ -41,18 +41,19 @@ const EventPage = () => {
   return (
     <div>
       {event.name}
-      <InviteUser setUsers={setUsers} />
-      {users.map((user) => {
+      <InviteUser setUsers={setUsers} eventId={eventId} />
+      {users?.map((user) => {
         return (
-          <>
-            <div key={user.phone}>{`${user.name} ${user.phone}`}</div>
+          <div key={user.phone}>
+            <div>{`${user.attendee_name} ${user.attendee_phone}`}</div>
             <button
-              key={user.phone}
-              onClick={() => handleSendSMS(user.name, user.phone)}
+              onClick={() =>
+                handleSendSMS(user.attendee_name, user.attendee_phone)
+              }
             >
               Send SMS
             </button>
-          </>
+          </div>
         );
       })}
 

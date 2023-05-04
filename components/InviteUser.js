@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { createUser, getAllUsers } from "@/api/api";
 
-const InviteUser = ({ setUsers }) => {
-  const [formData, setFormData] = useState({});
+const InviteUser = ({ setUsers, eventId }) => {
+  const [formData, setFormData] = useState({ event: eventId });
 
   async function submitHandler(e) {
     e.preventDefault();
